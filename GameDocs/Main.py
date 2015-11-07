@@ -11,5 +11,3 @@ while True:
 			sys.exit()
 
 	pygame.display.flip()
-
-print ('test')
