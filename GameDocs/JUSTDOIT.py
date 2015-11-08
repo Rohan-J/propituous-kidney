@@ -175,7 +175,7 @@ def main():
 	upgrade = 0
 
 	screen = pygame.display.set_mode(DISPLAY, FLAGS, DEPTH)
-	pygame.display.set_caption("Run")
+	pygame.display.set_caption("FADE")
 	screen.fill((0,255,255))
 
 	new_sprite = Player(0, HEIGHT/3*2-100)
