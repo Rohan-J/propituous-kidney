@@ -109,13 +109,16 @@ class Rectangle(pygame.sprite.Sprite):
 		self.image.fill(BLACK)
 		self.selfscreen = screens
 		self.xv = WIDTH
+		self.opacity = 255
 
 
 	def update(self):
 		if(self.xv > 0-self.random_x):
+			self.image.set_alpha(self.opacity)
 			self.selfscreen.blit(self.image,(self.xv, HEIGHT/3))
 			#self.newRect = pygame.draw.rect(self.selfscreen, BLACK, (self.xv, HEIGHT/3*1, self.random_x, self.random_y))
 			self.xv = self.xv - 10
+			self.opacity = self.opacity - 3
 		else:
 			self.kill()
 
