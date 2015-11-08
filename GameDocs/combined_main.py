@@ -29,9 +29,12 @@ class Player(pygame.sprite.Sprite):
 		self.curImage = self.playerSprites[self.index]
 
 	def update(self):
-		self.index = self.index + 1
-		if(self.index == 4):
-			self.index = 0
+		if(self.count == 30):
+			self.index = self.index + 1
+			if(self.index == 4):
+				self.index = 0
+			self.count = 0
+		self.count = self.count + 1
 		self.curImage = self.playerSprites[self.index]
 
 
@@ -58,7 +61,6 @@ def main():
 		a = pygame.draw.rect(screen, (0,0,0), (0,HEIGHT/3*2,1366,384))
 		#sprites.draw(screen)
 		pygame.display.flip()
-		time.sleep(0.1)
 		screen.fill((0,255,255))
 
 main()
