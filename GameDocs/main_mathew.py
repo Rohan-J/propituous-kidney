@@ -14,6 +14,10 @@ class Player(pygame.sprite.Sprite):
 	def __init__(self, x, y):
 		self.xc = x
 		self.yc = y
+		self.fall = True
+		self.changeY1 = 0
+		self.changeY2 = 0
+		self.jumps = False
 		self.count = 0
 		self.index = 0
 		self.playerSprites = []
@@ -31,17 +35,37 @@ class Player(pygame.sprite.Sprite):
 		self.playerSprites.append(self.image4)
 		self.curImage = self.playerSprites[self.index]
 
-	#ef jump(self):
 
+	def jump(self):
+		self.jumps = True
 
 	def update(self):
+		if(self.jumps == True):
+			self.curImage = self.playerSprites[1]
+			self.yc = self.yc - self.changeY1 #asd
+			self.changeY1 = self.changeY1 - 0.35
+			if(self.changeY1 <= 0):
+				self.changeY1 = 0
+				self.jumps = False
+		if(self.jumps == False):
+			self.fall = False
+			self.curImage = self.playerSprites[1]
+			if(self.yc < HEIGHT/3*2-88):
+				self.yc = self.yc + self.changeY2
+				self.changeY2 += 0.35
+			else:
+				self.fall = True
+				self.yc = HEIGHT/3*2-88
+				self.changeY2 = 0
+
 		if(self.count == 5):
 			self.index = self.index + 1
 			if(self.index == 4):
 				self.index = 0
 			self.count = 0
 		self.count = self.count + 1
-		self.curImage = self.playerSprites[self.index]
+		if(self.jumps != True and self.fall == True):
+			self.curImage = self.playerSprites[self.index]
 
 
 def main():
@@ -61,6 +85,12 @@ def main():
 			if event.type==pygame.QUIT:
 				pygame.quit()
 				sys.exit()
+
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_SPACE:
+					new_sprite.changeY1 = 15
+					new_sprite.changeY2 = 6
+					new_sprite.jump()
 
 		new_sprite.update()
 		screen.blit(new_sprite.curImage, (new_sprite.xc, new_sprite.yc))
