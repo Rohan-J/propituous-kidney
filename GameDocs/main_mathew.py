@@ -11,7 +11,9 @@ FLAGS = 0
 
 
 class Player(pygame.sprite.Sprite):
-	def __init__(self):
+	def __init__(self, x, y):
+		self.xc = x
+		self.yc = y
 		self.count = 0
 		self.index = 0
 		self.playerSprites = []
@@ -29,8 +31,11 @@ class Player(pygame.sprite.Sprite):
 		self.playerSprites.append(self.image4)
 		self.curImage = self.playerSprites[self.index]
 
+	#ef jump(self):
+
+
 	def update(self):
-		if(self.count == 30):
+		if(self.count == 5):
 			self.index = self.index + 1
 			if(self.index == 4):
 				self.index = 0
@@ -41,12 +46,13 @@ class Player(pygame.sprite.Sprite):
 
 def main():
 	pygame.init()
+	clock = pygame.time.Clock()
 	#-Variables
 	screen = pygame.display.set_mode(DISPLAY, FLAGS, DEPTH)
 	pygame.display.set_caption("rohan is hot, but rayyaan is hotter")
 	screen.fill((0,255,255))
 
-	new_sprite = Player()
+	new_sprite = Player(0, HEIGHT/3*2-88)
 	sprites = pygame.sprite.Group()
 
 	while True:
@@ -57,8 +63,9 @@ def main():
 				sys.exit()
 
 		new_sprite.update()
-		screen.blit(new_sprite.curImage, (0,HEIGHT/3*2-100))
+		screen.blit(new_sprite.curImage, (new_sprite.xc, new_sprite.yc))
 		pygame.display.flip()
+		clock.tick(60)
 		screen.fill((0,255,255))
 
 main()
