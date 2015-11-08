@@ -14,13 +14,13 @@ class Player(pygame.sprite.Sprite):
 	def __init__(self):
 		self.index = 0
 		self.playerSprites = []
-		self.image1 = pygame.image.load("C:\Users\\frank\\Documents\\GitHub\\propituous-kidney\\GameDocs\\sprite animation\\move1.png")
+		self.image1 = pygame.image.load("move1.png")
 		self.image1 = pygame.transform.scale(self.image1, (100,100))
-		self.image2 = pygame.image.load("C:\Users\\frank\\Documents\\GitHub\\propituous-kidney\\GameDocs\\sprite animation\\move2.png")
+		self.image2 = pygame.image.load("move2.png")
 		self.image2 = pygame.transform.scale(self.image2, (100,100))
-		self.image3 = pygame.image.load("C:\Users\\frank\\Documents\\GitHub\\propituous-kidney\\GameDocs\\sprite animation\\move3.png")
+		self.image3 = pygame.image.load("move3.png")
 		self.image3 = pygame.transform.scale(self.image3, (100,100))
-		self.image4 = pygame.image.load("C:\Users\\frank\\Documents\\GitHub\\propituous-kidney\\GameDocs\\sprite animation\\move4.png")
+		self.image4 = pygame.image.load("move4.png")
 		self.image4 = pygame.transform.scale(self.image4, (100,100))
 		self.playerSprites.append(self.image1)
 		self.playerSprites.append(self.image2)
