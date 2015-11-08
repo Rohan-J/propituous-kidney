@@ -9,6 +9,8 @@ DISPLAY = (WIDTH,HEIGHT)
 DEPTH = 32
 FLAGS = 0
 
+#global var
+jumpFlag = False
 
 class Player(pygame.sprite.Sprite):
 	def __init__(self, x, y):
@@ -40,6 +42,7 @@ class Player(pygame.sprite.Sprite):
 		self.jumps = True
 
 	def update(self):
+		global jumpFlag
 		if(self.jumps == True):
 			self.curImage = self.playerSprites[1]
 			self.yc = self.yc - self.changeY1 #asd
@@ -55,6 +58,7 @@ class Player(pygame.sprite.Sprite):
 				self.changeY2 += 0.35
 			else:
 				self.fall = True
+				jumpFlag = False
 				self.yc = HEIGHT/3*2-88
 				self.changeY2 = 0
 
@@ -69,6 +73,7 @@ class Player(pygame.sprite.Sprite):
 
 
 def main():
+	global jumpFlag
 	pygame.init()
 	clock = pygame.time.Clock()
 	#-Variables
@@ -88,9 +93,11 @@ def main():
 
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_SPACE:
-					new_sprite.changeY1 = 15
-					new_sprite.changeY2 = 6
-					new_sprite.jump()
+					if(jumpFlag == False):
+						jumpFlag = True
+						new_sprite.changeY1 = 15
+						new_sprite.changeY2 = 6
+						new_sprite.jump()
 
 		new_sprite.update()
 		screen.blit(new_sprite.curImage, (new_sprite.xc, new_sprite.yc))
