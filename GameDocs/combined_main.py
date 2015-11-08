@@ -54,7 +54,8 @@ def main():
 				sys.exit()
 
 		new_sprite.update()
-		screen.blit(new_sprite.curImage, (0,HEIGHT/3*2-100))
+		screen.blit(new_sprite.curImage, (0,HEIGHT/3*2-88))
+		a = pygame.draw.rect(screen, (0,0,0), (0,HEIGHT/3*2,1366,384))
 		#sprites.draw(screen)
 		pygame.display.flip()
 		time.sleep(0.1)
