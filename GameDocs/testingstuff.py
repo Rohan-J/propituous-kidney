@@ -1,12 +1,3 @@
-"""
-  Sample code shows "Game Over" message.
- 
-  Sample Python/Pygame Programs
-  Simpson College Computer Science
-  http://programarcadegames.com/
-  http://simpson.edu/computer-science/
-"""
- 
 import pygame
  
 # Define some colors
@@ -18,10 +9,10 @@ CYAN = (0, 255, 255)
 pygame.init()
  
 # Set the height and width of the screen
-size = [700, 500]
+size = [1366, 768]
 screen = pygame.display.set_mode(size)
  
-pygame.display.set_caption("Game Over Example")
+pygame.display.set_caption("Game Over screen")
  
 # Loop until the user clicks the close button.
 done = False
@@ -42,6 +33,8 @@ font = pygame.font.Font(None, 36)
  
 # Use this boolean variable to trigger if the game is over.
 game_over = False
+
+background_image = pygame.image.load("tilepatterns_DSC9320b.jpg").convert()
  
 # -------- Main Program Loop -----------
 while not done:
@@ -74,22 +67,18 @@ while not done:
     # --- Draw the frame
  
     # Set the screen background
-    screen.fill(BLACK)
+    screen.blit(background_image,[0,0])
  
-    # Draw the rectangle
-    pygame.draw.rect(screen, GREEN, [rect_x, rect_y, 50, 50])
+
  
     if game_over:
         # If game over is true, draw game over
-        text = font.render("Game Over", True, WHITE)
-        text_rect = text.get_rect()
-        text_x = screen.get_width() / 2 - text_rect.width / 2
-        text_y = screen.get_height() / 2 - text_rect.height / 2
-        screen.blit(text, [text_x, text_y])
+        pygame.quit()
+        sys.exit()
  
     else:
         # If game isn't over, draw this stuff.
-        text = font.render("Click to end game", True, WHITE)
+        text = font.render("Game Over! Click to exit.", True, WHITE)
         text_rect = text.get_rect()
         text_x = screen.get_width() / 2 - text_rect.width / 2
         text_y = screen.get_height() / 2 - text_rect.height / 2
