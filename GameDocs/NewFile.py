@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame, sys, random
 
 
 
@@ -8,9 +8,12 @@ HEIGHT = 768
 DISPLAY = (WIDTH,HEIGHT)
 DEPTH = 32
 FLAGS = 0
-BLACK = (255,255,255)
+BLACK = (0,0,0)
 
 
+class Rectangle(pygame.sprite.Sprite):
+	def __init__(self, w, h, screens):
+		self.newRect = pygame.draw.rect(screens, BLACK, (1300, 384, w, h))
 		
 
 		
@@ -28,6 +31,7 @@ def main():
 	
 
 	while True:
+		b = Rectangle(100, 100, screen)
 
 		for event in pygame.event.get():
 			if event.type==pygame.QUIT:
