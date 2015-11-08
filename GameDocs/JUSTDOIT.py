@@ -23,6 +23,9 @@ while (end_it==False):
     font = pygame.font.SysFont("Ariel", 42)
     nlabel=font.render("Welcome! Click to Play!", 1, (0, 0, 0))
     for event in pygame.event.get():
+    	if event.type == pygame.QUIT:
+    		pygame.quit()
+    		sys.exit()
         if event.type==pygame.MOUSEBUTTONDOWN:
             end_it=True
     Screen.blit(nlabel,[500,384])
