@@ -18,6 +18,7 @@ def main():
 	pygame.display.set_caption("rohan is hot")
 	screen.fill((0,255,255))
 	sprites = pygame.sprite.Group()
+	pygame.draw.rect(screen, (0,0,0), (0,HEIGHT/3*2,1366,384))
 
 	while True:
 

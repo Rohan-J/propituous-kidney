@@ -8,7 +8,13 @@ HEIGHT = 768
 DISPLAY = (WIDTH,HEIGHT)
 DEPTH = 32
 FLAGS = 0
+BLACK = (255,255,255)
 
+
+		
+
+		
+		
 
 def main():
 	pygame.init()
@@ -18,7 +24,8 @@ def main():
 	pygame.display.set_caption("rohan is hot")
 	screen.fill((0,255,255))
 	sprites = pygame.sprite.Group()
-	pygame.draw.rect(screen, (0,0,0), (0,HEIGHT/3*2,1366,384))
+	a = pygame.draw.rect(screen, (0,0,0), (0,HEIGHT/3*2,1366,384))
+	
 
 	while True:
 
