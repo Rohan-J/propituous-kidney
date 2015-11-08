@@ -101,6 +101,7 @@ def main():
 
 		new_sprite.update()
 		screen.blit(new_sprite.curImage, (new_sprite.xc, new_sprite.yc))
+		a = pygame.draw.rect(screen, (0,0,0), (0,HEIGHT/3*2,1366,384))
 		pygame.display.flip()
 		clock.tick(60)
 		screen.fill((0,255,255))
