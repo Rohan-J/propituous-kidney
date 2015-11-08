@@ -1,4 +1,4 @@
-import pygame, sys, time
+import pygame, sys, time, os
 
 
 
@@ -37,15 +37,14 @@ class Player(pygame.sprite.Sprite):
 
 def main():
 	pygame.init()
-
+	#print(os.path.basename(your_path))
 	#-Variables
 	screen = pygame.display.set_mode(DISPLAY, FLAGS, DEPTH)
-	pygame.display.set_caption("rohan is hot")
+	pygame.display.set_caption("rohan is hot, but rayyaan is hotter")
 	screen.fill((0,255,255))
 
 	new_sprite = Player()
 	sprites = pygame.sprite.Group()
-	pygame.draw.rect(screen, (0,0,0), (0,HEIGHT/3*2,1366,384))
 
 	while True:
 
@@ -62,4 +61,3 @@ def main():
 		screen.fill((0,255,255))
 
 main()
-
