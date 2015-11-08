@@ -12,6 +12,7 @@ FLAGS = 0
 
 class Player(pygame.sprite.Sprite):
 	def __init__(self):
+		self.count = 0
 		self.index = 0
 		self.playerSprites = []
 		self.image1 = pygame.image.load("move1.png")
@@ -29,15 +30,17 @@ class Player(pygame.sprite.Sprite):
 		self.curImage = self.playerSprites[self.index]
 
 	def update(self):
-		self.index = self.index + 1
-		if(self.index == 4):
-			self.index = 0
+		if(self.count == 30):
+			self.index = self.index + 1
+			if(self.index == 4):
+				self.index = 0
+			self.count = 0
+		self.count = self.count + 1
 		self.curImage = self.playerSprites[self.index]
 
 
 def main():
 	pygame.init()
-	#print(os.path.basename(your_path))
 	#-Variables
 	screen = pygame.display.set_mode(DISPLAY, FLAGS, DEPTH)
 	pygame.display.set_caption("rohan is hot, but rayyaan is hotter")
@@ -55,9 +58,7 @@ def main():
 
 		new_sprite.update()
 		screen.blit(new_sprite.curImage, (0,HEIGHT/3*2-100))
-		#sprites.draw(screen)
 		pygame.display.flip()
-		time.sleep(0.1)
 		screen.fill((0,255,255))
 
 main()
