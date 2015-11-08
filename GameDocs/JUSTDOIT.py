@@ -160,7 +160,9 @@ def main():
 	clock = pygame.time.Clock()
 	font = pygame.font.Font(None,36)
 	rate = 0
+	definedRate = 120
 	limit = 0
+	upgrade = 0
 
 	screen = pygame.display.set_mode(DISPLAY, FLAGS, DEPTH)
 	pygame.display.set_caption("Run")
@@ -204,12 +206,16 @@ def main():
 
 
 
-		if(rate == 120): #150
+		if(rate == definedRate): #150
+			if(upgrade == 10):
+				definedRate = definedRate - 15
+				upgrade = 0
 			a = Rectangle(100, 100, screen)
 			sprites.add(a)
 			blocks.add(a)
 			#print(HEIGHT/3*1-a.y-100)
 			rate = 0
+			upgrade = upgrade + 1
 
 
 		livesText = font.render("Lives: " + str(lives), True, BLACK)
