@@ -1,7 +1,8 @@
 import pygame, sys, time, os, random
 pygame.init()
 
-
+pygame.mixer.music.load("NitroFun_NewGame.ogg")
+pygame.mixer.music.play(-1)
 
 #-Constants
 WIDTH = 1366
