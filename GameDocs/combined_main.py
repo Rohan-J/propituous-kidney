@@ -13,6 +13,7 @@ FLAGS = 0
 class Player(pygame.sprite.Sprite):
 	def __init__(self):
 		self.index = 0
+		self.count = 0
 		self.playerSprites = []
 		self.image1 = pygame.image.load("move1.png")
 		self.image1 = pygame.transform.scale(self.image1, (100,100))
