@@ -108,6 +108,7 @@ def gameOver():
 	text_x = WIDTH/2 - text_rect.width/2
 	text_y = HEIGHT/2 - text_rect.height/2
 	screen = pygame.display.set_mode(DISPLAY, FLAGS, DEPTH)
+	background_image = pygame.image.load("tilepatterns_DSC9320b.jpg").convert()
 	screen.fill((0,255,255))
 	while(not clicked):
 		for event in pygame.event.get():
@@ -118,7 +119,7 @@ def gameOver():
 				clicked = True
 		screen.blit(text, [text_x, text_y])
 		pygame.display.flip()
-		screen.fill((0,255,255))
+		screen.blit(background_image,[0,0])
 
 
 def main():
@@ -133,7 +134,7 @@ def main():
 	limit = 0
 
 	screen = pygame.display.set_mode(DISPLAY, FLAGS, DEPTH)
-	pygame.display.set_caption("rohan is hot, but rayyaan is hotter")
+	pygame.display.set_caption("Run")
 	screen.fill((0,255,255))
 
 	new_sprite = Player(0, HEIGHT/3*2-100)
@@ -143,6 +144,7 @@ def main():
 	sprites.add(a)
 	sprites.add(new_sprite)
 	blocks.add(a)
+	background_image = pygame.image.load("tilepatterns_DSC9320b.jpg").convert()
 
 
 	while not done:
@@ -190,6 +192,6 @@ def main():
 		limit = limit + 1
 		pygame.display.flip()
 		clock.tick(60)
-		screen.fill((0,255,255))
+		screen.blit(background_image,[0,0])
 main()
 gameOver()

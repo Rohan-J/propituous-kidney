@@ -57,13 +57,13 @@ class Player(pygame.sprite.Sprite):
 		if(self.jumps == False):
 			self.fall = False
 			self.curImage = self.playerSprites[1]
-			if(self.yc < HEIGHT/3*2-88):
+			if(self.yc < HEIGHT/3*2-100):
 				self.yc = self.yc + self.changeY2
 				self.changeY2 += 0.35
 			else:
 				self.fall = True
 				jumpFlag = False
-				self.yc = HEIGHT/3*2-88
+				self.yc = HEIGHT/3*2-100
 				self.changeY2 = 0
 
 		if(self.count == 5):
@@ -79,10 +79,10 @@ class Rectangle(pygame.sprite.Sprite):
 	def __init__(self, w, h, screens):
 		pygame.sprite.Sprite.__init__(self)
 		self.counter = 0
-		self.random_x = random.randint(100, 250)
-		self.random_y = random.randint(100, 400)
+		self.random_x = random.randint(100, 150)
+		self.random_y = random.randint(100, 350)
 		if(self.random_x > 200):
-			self.random_y = 270
+			self.random_y = 140
 		self.image = pygame.Surface([self.random_x, self.random_y])
 		self.rect = self.image.get_rect()
 		self.y = self.random_y
@@ -93,31 +93,61 @@ class Rectangle(pygame.sprite.Sprite):
 
 	def update(self):
 		if(self.xv > 0-self.random_x):
-			self.selfscreen.blit(self.image,(self.xv, HEIGHT/3*1))
+			self.selfscreen.blit(self.image,(self.xv, HEIGHT/3))
 			#self.newRect = pygame.draw.rect(self.selfscreen, BLACK, (self.xv, HEIGHT/3*1, self.random_x, self.random_y))
 			self.xv = self.xv - 10
 		else:
 			self.kill()
 
 
+def gameOver():
+	font = pygame.font.Font(None, 36)
+	clicked = False
+	text = font.render("Game Over! Click to exit.", True, BLACK)
+	text_rect = text.get_rect()
+	text_x = WIDTH/2 - text_rect.width/2
+	text_y = HEIGHT/2 - text_rect.height/2
+	screen = pygame.display.set_mode(DISPLAY, FLAGS, DEPTH)
+	background_image = pygame.image.load("tilepatterns_DSC9320b.jpg").convert()
+	screen.fill((0,255,255))
+	while(not clicked):
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				sys.exit()
+			elif event.type == pygame.MOUSEBUTTONDOWN:
+				clicked = True
+		screen.blit(text, [text_x, text_y])
+		pygame.display.flip()
+		screen.blit(background_image,[0,0])
+
+
 def main():
+
+	lives = 3
+	done = False
 	global jumpFlag
 	pygame.init()
+	collided = False
 	clock = pygame.time.Clock()
 	rate = 0
-	#-Variables
+	limit = 0
+
 	screen = pygame.display.set_mode(DISPLAY, FLAGS, DEPTH)
-	pygame.display.set_caption("rohan is hot, but rayyaan is hotter")
+	pygame.display.set_caption("Run")
 	screen.fill((0,255,255))
 
-	new_sprite = Player(0, HEIGHT/3*2-88)
+	new_sprite = Player(0, HEIGHT/3*2-100)
 	sprites = pygame.sprite.Group()
-	sprites.add(Rectangle(100, 100, screen))
-	sprites.add(new_sprite)
 	blocks = pygame.sprite.Group()
+	a = Rectangle(100, 100, screen)
+	sprites.add(a)
+	sprites.add(new_sprite)
+	blocks.add(a)
 	background_image = pygame.image.load("tilepatterns_DSC9320b.jpg").convert()
 
-	while True:
+
+	while not done:
 
 		for event in pygame.event.get():
 			if event.type==pygame.QUIT:
@@ -131,11 +161,27 @@ def main():
 						new_sprite.changeY1 = 15
 						new_sprite.changeY2 = 6
 						new_sprite.jump()
-		if(rate == 200):
+
+		for x in blocks:
+			if(new_sprite.yc > x.y and x.xv <= 100 and x.xv >= 0):
+				if(HEIGHT/3-x.y > 100):
+					pass
+				elif(limit > 60):
+					print("You crashed")
+					limit = 0
+					lives = lives - 1
+					if(lives == 0):
+						done = True
+
+
+
+		if(rate == 120): #150
 			a = Rectangle(100, 100, screen)
 			sprites.add(a)
 			blocks.add(a)
+			#print(HEIGHT/3*1-a.y-100)
 			rate = 0
+
 
 		#new_sprite.checkCollision(new_sprite, blocks)
 		a = pygame.draw.rect(screen, (0,0,0), (0,HEIGHT/3*2,1366,384))
@@ -143,13 +189,9 @@ def main():
 		screen.blit(new_sprite.curImage, (new_sprite.xc, new_sprite.yc))
 			#sys.exit()
 		rate = rate + 1
+		limit = limit + 1
 		pygame.display.flip()
 		clock.tick(60)
 		screen.blit(background_image,[0,0])
-		print("a")
-
 main()
-
-
-
-
+gameOver()
