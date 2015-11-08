@@ -100,7 +100,30 @@ class Rectangle(pygame.sprite.Sprite):
 			self.kill()
 
 
+def gameOver():
+	font = pygame.font.Font(None, 36)
+	clicked = False
+	text = font.render("Game Over! Click to exit.", True, BLACK)
+	text_rect = text.get_rect()
+	text_x = WIDTH/2 - text_rect.width/2
+	text_y = HEIGHT/2 - text_rect.height/2
+	screen = pygame.display.set_mode(DISPLAY, FLAGS, DEPTH)
+	screen.fill((0,255,255))
+	while(not clicked):
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				sys.exit()
+			elif event.type == pygame.MOUSEBUTTONDOWN:
+				clicked = True
+		screen.blit(text, [text_x, text_y])
+		pygame.display.flip()
+		screen.fill((0,255,255))
+
+
 def main():
+
+	lives = 3
 	done = False
 	global jumpFlag
 	pygame.init()
@@ -115,9 +138,11 @@ def main():
 
 	new_sprite = Player(0, HEIGHT/3*2-100)
 	sprites = pygame.sprite.Group()
-	sprites.add(Rectangle(100, 100, screen))
-	sprites.add(new_sprite)
 	blocks = pygame.sprite.Group()
+	a = Rectangle(100, 100, screen)
+	sprites.add(a)
+	sprites.add(new_sprite)
+	blocks.add(a)
 
 
 	while not done:
@@ -140,8 +165,11 @@ def main():
 				if(HEIGHT/3-x.y > 100):
 					pass
 				elif(limit > 60):
-					print(x.y)
+					print("You crashed")
 					limit = 0
+					lives = lives - 1
+					if(lives == 0):
+						done = True
 
 
 
@@ -164,3 +192,4 @@ def main():
 		clock.tick(60)
 		screen.fill((0,255,255))
 main()
+gameOver()
