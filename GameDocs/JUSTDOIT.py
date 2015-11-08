@@ -101,6 +101,12 @@ class Rectangle(pygame.sprite.Sprite):
 		self.counter = 0
 		self.random_x = random.randint(100, 150)
 		self.random_y = random.randint(100, 350)
+		self.inOut = random.randint(1,2)
+		self.fadeCount = 0
+		if(self.inOut == 1):
+			self.opacity = 255
+		elif(self.inOut == 2):
+			self.opacity = 1
 		if(self.random_x > 200):
 			self.random_y = 140
 		self.image = pygame.Surface([self.random_x, self.random_y])
@@ -109,7 +115,6 @@ class Rectangle(pygame.sprite.Sprite):
 		self.image.fill(BLACK)
 		self.selfscreen = screens
 		self.xv = WIDTH
-		self.opacity = 255
 
 
 	def update(self):
@@ -117,7 +122,12 @@ class Rectangle(pygame.sprite.Sprite):
 			self.image.set_alpha(self.opacity)
 			self.selfscreen.blit(self.image,(self.xv, HEIGHT/3))
 			self.xv = self.xv - 10
-			self.opacity = self.opacity - 3
+			if(self.inOut == 1):
+				self.opacity = self.opacity - 3
+			elif(self.inOut == 2):
+				if(self.fadeCount >= 60):
+					self.opacity = self.opacity + 2
+				self.fadeCount += 1
 		else:
 			self.kill()
 
