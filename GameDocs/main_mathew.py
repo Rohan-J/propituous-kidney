@@ -1,4 +1,4 @@
-import pygame, sys, time, os
+import pygame, sys, time, os, random
 
 
 
@@ -8,6 +8,7 @@ HEIGHT = 768
 DISPLAY = (WIDTH,HEIGHT)
 DEPTH = 32
 FLAGS = 0
+BLACK = (0, 0, 0)
 
 #global var
 jumpFlag = False
@@ -71,11 +72,28 @@ class Player(pygame.sprite.Sprite):
 		if(self.jumps != True and self.fall == True):
 			self.curImage = self.playerSprites[self.index]
 
+class Rectangle(pygame.sprite.Sprite):
+	def __init__(self, w, h, screens):
+		pygame.sprite.Sprite.__init__(self)
+		self.counter = 0
+		self.random_x = random.randint(100, 250)
+		self.random_y = random.randint(100, 400)
+		if(self.random_x > 200):
+			self.random_y = 270
+		self.selfscreen = screens
+		self.xv = WIDTH
+
+	def update(self):
+		if(self.xv > 0-self.random_x):
+			self.newRect = pygame.draw.rect(self.selfscreen, BLACK, (self.xv, HEIGHT/3*1, self.random_x, self.random_y))
+			self.xv = self.xv - 10
+
 
 def main():
 	global jumpFlag
 	pygame.init()
 	clock = pygame.time.Clock()
+	rate = 0
 	#-Variables
 	screen = pygame.display.set_mode(DISPLAY, FLAGS, DEPTH)
 	pygame.display.set_caption("rohan is hot, but rayyaan is hotter")
@@ -83,6 +101,7 @@ def main():
 
 	new_sprite = Player(0, HEIGHT/3*2-88)
 	sprites = pygame.sprite.Group()
+	sprites.add(Rectangle(100, 100, screen))
 
 	while True:
 
@@ -98,10 +117,14 @@ def main():
 						new_sprite.changeY1 = 15
 						new_sprite.changeY2 = 6
 						new_sprite.jump()
-
-		new_sprite.update()
-		screen.blit(new_sprite.curImage, (new_sprite.xc, new_sprite.yc))
+		if(rate == 200):
+			sprites.add(Rectangle(100, 100, screen))
+			rate = 0
 		a = pygame.draw.rect(screen, (0,0,0), (0,HEIGHT/3*2,1366,384))
+		new_sprite.update()
+		sprites.update()
+		screen.blit(new_sprite.curImage, (new_sprite.xc, new_sprite.yc))
+		rate = rate + 1
 		pygame.display.flip()
 		clock.tick(60)
 		screen.fill((0,255,255))
