@@ -22,7 +22,7 @@ background_image = pygame.image.load("tilepatterns_DSC9320b.jpg").convert()
 while (end_it==False):
     Screen.blit(background_image,[0,0])
     font = pygame.font.SysFont("Ariel", 42)
-    nlabel=font.render("Welcome! Click to Play!", 1, (0, 0, 0))
+    nlabel=font.render("Welcome! Click anywhere to begin!", 1, (0, 0, 0))
     for event in pygame.event.get():
     	if event.type == pygame.QUIT:
     		pygame.quit()
@@ -32,7 +32,7 @@ while (end_it==False):
     Screen.blit(nlabel,[500,384])
     pygame.display.flip()
 
-
+#player controlled sprite + gravity and sprite png's
 class Player(pygame.sprite.Sprite):
 	def __init__(self, x, y):
 		pygame.sprite.Sprite.__init__(self)
@@ -64,7 +64,7 @@ class Player(pygame.sprite.Sprite):
 
 	def jump(self):
 		self.jumps = True
-
+		#create a jumping mechanic
 	def update(self):
 		global jumpFlag
 		if(self.jumps == True):
@@ -95,6 +95,7 @@ class Player(pygame.sprite.Sprite):
 		if(self.jumps != True and self.fall == True):
 			self.curImage = self.playerSprites[self.index]
 
+#create a rectangle class that spawns random sized randomly assorted rects given perameters within random.randint() 
 class Rectangle(pygame.sprite.Sprite):
 	def __init__(self, w, h, screens):
 		pygame.sprite.Sprite.__init__(self)
@@ -116,7 +117,7 @@ class Rectangle(pygame.sprite.Sprite):
 		self.selfscreen = screens
 		self.xv = WIDTH
 
-
+	#changes opacity of the rects as they enter and exit the screen
 	def update(self):
 		if(self.xv > 0-self.random_x):
 			self.image.set_alpha(self.opacity)
@@ -131,7 +132,7 @@ class Rectangle(pygame.sprite.Sprite):
 		else:
 			self.kill()
 
-
+#create the end-game menu and dialogue for final scores
 def gameOver():
 	global score
 	font = pygame.font.Font(None, 36)
@@ -139,7 +140,7 @@ def gameOver():
 	endScore = font.render("Final Score: " + str(score), True, BLACK)
 	endScore_rect = endScore.get_rect()
 	endScore_x= WIDTH/2 - endScore_rect.width/2
-	text = font.render("Game Over! Click to exit.", True, BLACK)
+	text = font.render("Game Over! Click anywhere to exit.", True, BLACK)
 	text_rect = text.get_rect()
 	text_x = WIDTH/2 - text_rect.width/2
 	text_y = HEIGHT/2 - text_rect.height/2
@@ -228,9 +229,9 @@ def main():
 			upgrade = upgrade + 1
 
 
-		livesText = font.render("Lives: " + str(lives), True, BLACK)
+		livesText = font.render("Lives: " + str(lives), True, (255,0,0))
 		lives_rect = livesText.get_rect()
-		scoreText = font.render("Score: " + str(score), True, BLACK)
+		scoreText = font.render("Score: " + str(score), True, (255,255,255))
 		score_rect = scoreText.get_rect()
 		#new_sprite.checkCollision(new_sprite, blocks)
 		a = pygame.draw.rect(screen, (0,0,0), (0,HEIGHT/3*2,1366,384))
